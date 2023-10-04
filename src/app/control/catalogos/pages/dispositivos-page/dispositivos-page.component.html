@@ -1,0 +1,184 @@
+<h2>Dispositivos</h2>
+<hr class="divider">
+
+<ng-template #divLoading class="d-flex justify-content-center">
+  <div class="spinner-border text-primary"></div>
+</ng-template>
+
+<div class="mb-2 d-flex justify-content-start">
+
+  <!-- Filtros de búsqueda -->
+
+</div>
+  <div class="d-flex justify-content-end mb-2" *ngIf="!isAuthenticated">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrarDispositivo" (click)="registrarDispositivo()">Registrar dispositivo</button>
+  </div>
+
+  <registrar-dispositivo
+    [modelos]="modelos"
+    [areas]="areas"
+    (onDevice)="regDispositivo($event)"
+  >
+  </registrar-dispositivo>
+
+  <div id="snackbar" [ngClass]="success ? 'show' : ''">{{ snackbarMessage }}</div>
+
+  <div class="card" >
+    <p-table
+        #dt
+        [value]="dispositivos"
+        dataKey="id"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [loading]="false"
+        [paginator]="true"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        [filterDelay]="0"
+        [globalFilterFields]="[ 'tipo', 'marca', 'modelo', 'num_serie', 'asset_name', 'mac_address', 'ip_address', 'owner', 'ubicacion', 'proceso', 'fecha_compra', 'garantia_inicio', 'garantia_fin']"
+    >
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+              <h5 class="m-2">Buscar dispositivo</h5>
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" class="form-control" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+              </span>
+          </div>
+      </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="tipo" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Tipo
+                    <p-sortIcon field="tipo"></p-sortIcon>
+                    <p-columnFilter type="text" field="tipo" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="marca" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Marca
+                    <p-sortIcon field="marca"></p-sortIcon>
+                    <p-columnFilter type="text" field="marca" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="modelo" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Modelo
+                    <p-sortIcon field="modelo"></p-sortIcon>
+                    <p-columnFilter type="text" field="modelo" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="num_serie" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Num serie
+                    <p-sortIcon field="num_serie"></p-sortIcon>
+                    <p-columnFilter type="text" field="num_serie" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="asset_name" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Asset Name
+                    <p-sortIcon field="asset_name"></p-sortIcon>
+                    <p-columnFilter type="text" field="asset_name" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="mac_address" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Mac
+                    <p-sortIcon field="mac_address"></p-sortIcon>
+                    <p-columnFilter type="text" field="mac_address" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="ip_address" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    IP
+                    <p-sortIcon field="ip_address"></p-sortIcon>
+                    <p-columnFilter type="text" field="ip_address" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="owner" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Owner
+                    <p-sortIcon field="owner"></p-sortIcon>
+                    <p-columnFilter type="text" field="owner" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="ubicacion" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Ubicación
+                    <p-sortIcon field="ubicacion"></p-sortIcon>
+                    <p-columnFilter type="text" field="ubicacion" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="proceso" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Proceso
+                    <p-sortIcon field="proceso"></p-sortIcon>
+                    <p-columnFilter type="text" field="proceso" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="fecha_compra" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Fecha compra
+                    <p-sortIcon field="fecha_compra"></p-sortIcon>
+                    <p-columnFilter type="text" field="fecha_compra" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="garantia_inicio" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Garantía Inicio
+                    <p-sortIcon field="garantia_inicio"></p-sortIcon>
+                    <p-columnFilter type="text" field="garantia_inicio" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="garantia_fin" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Garantía fin
+                    <p-sortIcon field="garantia_fin"></p-sortIcon>
+                    <p-columnFilter type="text" field="garantia_fin" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+                <th style="min-width: 10rem" *ngIf="isAuthenticated">
+                  <div class="flex justify-content-between align-items-center">
+                      Acción
+                  </div>
+                </th>
+            </tr>
+        </ng-template>
+
+        <!-- Body -->
+        <ng-template pTemplate="body" let-dispositivos>
+
+          <tr class="p-selectable-row">
+            <td>{{ dispositivos.tipo }}</td>
+            <td>{{ dispositivos.marca }}</td>
+            <td>{{ dispositivos.modelo }}</td>
+            <td>{{ dispositivos.num_serie }}</td>
+            <td>{{ dispositivos.asset_name }}</td>
+            <td>{{ dispositivos.mac_address }}</td>
+            <td>{{ dispositivos.ip_address }}</td>
+            <td>{{ dispositivos.owner }}</td>
+            <td>{{ dispositivos.ubicacion }}</td>
+            <td>{{ dispositivos.proceso }}</td>
+            <td>{{ dispositivos.fecha_compra }}</td>
+            <td>{{ dispositivos.garantia_inicio }}</td>
+            <td>{{ dispositivos.garantia_fin }}</td>
+            <td *ngIf="isAuthenticated">
+              <div class="d-flex justify-content-between">
+                <!-- <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editarPaquete" (click)="initModalContent(pqs)">Editar</button>
+                <button *ngIf="pqs.status == 'RECIBIDO'" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#registrarRecibido" (click)="clickButton(pqs)">Entregar</button> -->
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No hay información para mostrar</td>
+            </tr>
+        </ng-template>
+    </p-table>
+  </div>
+
+

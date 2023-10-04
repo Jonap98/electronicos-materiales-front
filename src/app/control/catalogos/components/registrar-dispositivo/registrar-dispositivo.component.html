@@ -1,0 +1,163 @@
+<div class="modal fade" id="registrarDispositivo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="titleModalLabel">Registrar dispositivo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+        <div class="modal-body">
+
+          <form
+            [formGroup]="dispositivoForm!"
+            (ngSubmit)="onSubmit()"
+          >
+
+          <div class="row">
+
+            <div class="col">
+
+              <div class="m-2">
+                <span>Modelo</span>
+                <select class="form-select" formControlName="modelo">
+                  <option value="{{ modelo.modelo }}" *ngFor="let modelo of modelos">{{ modelo.tipo }} {{ modelo.marca }} {{ modelo.modelo }}</option>
+                </select>
+              </div>
+              <span *ngIf="isValidField('modelo')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('modelo') }}
+              </span>
+
+              <div class="m-2">
+                <span>Número de serie</span>
+                <input type="text" class="form-control" formControlName="num_serie">
+              </div>
+              <span *ngIf="isValidField('num_serie')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('num_serie') }}
+              </span>
+
+              <div class="m-2">
+                <span>Asset name</span>
+                <input type="text" class="form-control" formControlName="asset_name">
+              </div>
+              <span *ngIf="isValidField('asset_name')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('asset_name') }}
+              </span>
+
+              <div class="m-2">
+                <span>Mac address</span>
+                <input type="text" class="form-control" formControlName="mac_address">
+              </div>
+              <span *ngIf="isValidField('mac_address')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('mac_address') }}
+              </span>
+
+              <div class="m-2">
+                <span>IP address</span>
+                <input type="text" class="form-control" formControlName="ip_address">
+              </div>
+              <span *ngIf="isValidField('ip_address')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('ip_address') }}
+              </span>
+
+              <div class="m-2">
+                <span>Owner</span>
+                <input type="text" class="form-control" formControlName="owner">
+              </div>
+              <span *ngIf="isValidField('owner')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('owner') }}
+              </span>
+
+            </div>
+
+            <div class="col">
+
+              <div class="m-2">
+                <span>Ubicación</span>
+                <select class="form-select" formControlName="ubicacion">
+                  <option value="{{ area.area }}" *ngFor="let area of areas">{{ area.area }}</option>
+                </select>
+              </div>
+              <span *ngIf="isValidField('ubicacion')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('ubicacion') }}
+              </span>
+
+              <div class="m-2">
+                <span>Proceso</span>
+                <input type="text" class="form-control" formControlName="proceso">
+              </div>
+              <span *ngIf="isValidField('proceso')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('proceso') }}
+              </span>
+
+              <div class="m-2">
+                <span>Fecha de compra</span>
+                <div>
+                  <p-calendar formControlName="fecha_compra" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+                </div>
+              </div>
+              <span *ngIf="isValidField('fecha_compra')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('fecha_compra') }}
+              </span>
+
+              <div class="m-2">
+                <span>Garantía inicio</span>
+                <div>
+                  <p-calendar formControlName="garantia_inicio" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+                </div>
+              </div>
+              <span *ngIf="isValidField('garantia_inicio')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('garantia_inicio') }}
+              </span>
+
+              <div class="m-2">
+                <span>Garantía fin</span>
+                <div>
+                  <p-calendar formControlName="garantia_fin" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+                </div>
+              </div>
+              <span *ngIf="isValidField('garantia_fin')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('garantia_fin') }}
+              </span>
+
+              </div>
+
+            </div>
+
+          </form>
+
+          <span class="p-2">¿Seguro que desea registrar este dispositivo?</span>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onSubmit()">Confirmar</button>
+        </div>
+
+
+    </div>
+  </div>
+</div>
