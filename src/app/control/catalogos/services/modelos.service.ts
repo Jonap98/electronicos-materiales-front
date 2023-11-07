@@ -22,4 +22,8 @@ export class ModelosService {
     return this.http.get(`${ this.urlBase }/catalogos/modelos`);
   }
 
+  registrarModelo( data: object ): Observable<any> {
+    return this.http.post(`${ this.urlBase }/catalogos/modelos/store`, data);
+  }
+
 }

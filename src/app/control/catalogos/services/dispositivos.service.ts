@@ -21,6 +21,10 @@ export class DispositivosService {
     return this.http.get(`${ this.urlBase }/catalogos/dispositivos`);
   }
 
+  getAssetNames(): Observable<any> {
+    return this.http.get(`${ this.urlBase }/catalogos/dispositivos/assetnames`);
+  }
+
   registrarDispositivo( data: object ): Observable<any> {
     return this.http.post(`${ this.urlBase }/catalogos/dispositivos/store`, data);
   }

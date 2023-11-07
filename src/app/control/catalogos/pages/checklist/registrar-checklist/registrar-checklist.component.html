@@ -1,0 +1,111 @@
+
+<form class="flex flex-column gap-3" [formGroup]="checklistForm!">
+
+  <div class="mt-2">
+
+    <div class="">
+      <span>Asset name</span>
+    </div>
+
+    <div class="m-2">
+      <p-autoComplete formControlName="asset_name" [dropdown]="true" [suggestions]="filteredNames" (completeMethod)="filterNames($event)" field="name"></p-autoComplete>
+    </div>
+
+  </div>
+
+  <div class="mt-2">
+
+    <div class="">
+      <span>¿El equipo enciende?</span>
+    </div>
+
+    <div *ngFor="let option of yesNoOptions" class="field-checkbox d-inline">
+      <div class="m-2 d-inline">
+        <span class="ml-2">{{ option.name }}</span>
+        <p-radioButton class="ms-2" [inputId]="option.key" [value]="option.value" formControlName="status_enciende"></p-radioButton>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="mt-2">
+
+    <div class="">
+      <span>¿La pantalla está estrellada?</span>
+    </div>
+
+    <div *ngFor="let option of yesNoOptions" class="field-checkbox d-inline">
+      <div class="m-2 d-inline">
+        <span class="ml-2">{{ option.name }}</span>
+        <p-radioButton class="ms-2" [inputId]="option.key" [value]="option.value" formControlName="status_pantalla"></p-radioButton>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mt-2">
+
+    <div class="">
+      <span>¿Todas las partes funcionan?</span>
+    </div>
+
+    <div *ngFor="let option of yesNoOptions" class="field-checkbox d-inline">
+      <div class="m-2 d-inline">
+        <span class="ml-2">{{ option.name }}</span>
+        <p-radioButton class="ms-2" [inputId]="option.key" [value]="option.value" formControlName="status_partes_funcionamiento"></p-radioButton>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="mt-2">
+
+    <div class="">
+      <span>¿Hay partes quebradas, sueltas o le faltan piezas al equipo?</span>
+    </div>
+
+    <div *ngFor="let option of yesNoOptions" class="field-checkbox d-inline">
+      <div class="m-2 d-inline">
+        <span class="ml-2">{{ option.name }}</span>
+        <p-radioButton class="ms-2" [inputId]="option.key" [value]="option.value" formControlName="status_partes_faltantes"></p-radioButton>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="mt-2">
+
+    <div class="">
+      <span>Estado físico del equipo en general</span>
+    </div>
+
+    <div class="field-checkbox d-inline">
+      <div class="m-2 d-inline">
+        <p-rating class="ms-2" formControlName="status_general" [cancel]="false"></p-rating>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="m-2">
+
+    <div class="">
+      <span>Si el equipo presenta algun problema, favor de describirlo brevemente</span>
+    </div>
+
+    <div class="m-2">
+      <textarea class="form-control" formControlName="descripcion_problema" [maxLength]="500" rows="5"></textarea>
+    </div>
+
+  </div>
+
+  <div class="d-grid gap-2">
+    <p-button (onClick)="onSubmit()">Guardar</p-button>
+  </div>
+
+
+
+</form>

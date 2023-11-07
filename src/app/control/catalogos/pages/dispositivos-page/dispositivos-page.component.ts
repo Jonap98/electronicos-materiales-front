@@ -5,6 +5,7 @@ import { AreasService } from '../../services/areas.service';
 import { ModelosService } from '../../services/modelos.service';
 import { Modelo } from '../../interfaces/modelo.interface';
 import { Area } from '../../interfaces/area.interface';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dispositivos-page',
@@ -21,6 +22,9 @@ export class DispositivosPageComponent implements OnInit {
   public modelos: Modelo[] = [];
   public areas: Area[] = [];
 
+  public today: Date = new Date();
+  public todayFormatted = formatDate(this.today, 'MM/dd/yyyy', 'en-US');
+
   constructor(
     private dispositivosService: DispositivosService,
     private modelosService: ModelosService,
@@ -31,6 +35,18 @@ export class DispositivosPageComponent implements OnInit {
     this.dispositivosService.getDispositivos().subscribe(
       resp => {
         this.dispositivos = resp.data
+
+        this.dispositivos.map( dispositivo => {
+
+          if( dispositivo.ultimo_check ) {
+            const dia = formatDate(dispositivo.ultimo_check, 'MM/dd/yyyy hh:mm', 'en-US');
+
+            const diff = this.diferenciaEntreDiasEnDias(new Date(dia), new Date(this.todayFormatted));
+
+            dispositivo.diferencia = diff ?? 0;
+          }
+
+        });
       }
     )
 
@@ -67,6 +83,22 @@ export class DispositivosPageComponent implements OnInit {
     setTimeout(() => {
       this.success = false;
     }, 3000);
+  }
+
+
+  diferenciaEntreDiasEnDias(a: Date, b: Date): any{
+    var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+    const diff = utc2 - utc1;
+
+    const difinsecs = diff / 1000;
+
+    const diffinhours = difinsecs / 3600;
+
+    const diffInDays = diffinhours / 24;
+
+    return diffInDays;
   }
 
 }

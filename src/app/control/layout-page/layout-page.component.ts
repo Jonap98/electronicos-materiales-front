@@ -23,11 +23,19 @@ export class LayoutPageComponent implements OnInit {
     this.sidebarItems = this.isAuthenticated ?
       this.isAdmin ?
       [
+        { label: 'Auth', icon: 'area', url: './control/responsivas' },
         { label: 'Dispositivos', icon: 'area', url: './control/responsivas' },
         { label: 'Responsivas', icon: 'area', url: './control/responsivas' },
+        { label: 'Checklist', icon: 'area', url: '/control/catalogos/checklist' },
+        // { label: 'Graficas', icon: 'area', url: '/control/catalogos/modelos' },
       ]
       : []
-    : [];
+    : [
+      { label: 'Dispositivos', icon: 'area', url: './control/responsivas' },
+      { label: 'Modelos', icon: 'area', url: '/control/catalogos/modelos' },
+      { label: 'Checklist', icon: 'area', url: '/control/catalogos/checklist' },
+      // { label: 'Graficas', icon: 'area', url: '/control/catalogos/modelos' },
+    ];
 
     this.navbarItems = !this.isAuthenticated ? [
       { label: 'Login', icon: 'area', url: '../auth' },

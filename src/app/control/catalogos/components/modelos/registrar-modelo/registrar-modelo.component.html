@@ -1,0 +1,69 @@
+<div class="modal fade" id="registrarModelo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="titleModalLabel">Registrar modelo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+        <div class="modal-body">
+
+          <form
+            [formGroup]="modeloForm!"
+            (ngSubmit)="onSubmit()"
+          >
+
+          <div class="row">
+
+            <div class="col">
+
+              <div class="m-2">
+                <span>Tipo</span>
+                <input type="text" class="form-control" formControlName="tipo">
+              </div>
+              <span *ngIf="isValidField('tipo')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('tipo') }}
+              </span>
+
+              <div class="m-2">
+                <span>Marca</span>
+                <input type="text" class="form-control" formControlName="marca">
+              </div>
+              <span *ngIf="isValidField('marca')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('marca') }}
+              </span>
+
+              <div class="m-2">
+                <span>Modelo</span>
+                <input type="text" class="form-control" formControlName="modelo">
+              </div>
+              <span *ngIf="isValidField('modelo')"
+                  class="form-text text-danger"
+              >
+                {{ getFieldError('modelo') }}
+              </span>
+
+              </div>
+
+            </div>
+
+          </form>
+
+          <span class="p-2">¿Seguro que desea registrar este modelo?</span>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onSubmit()">Confirmar</button>
+        </div>
+
+
+    </div>
+  </div>
+</div>

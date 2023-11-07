@@ -13,4 +13,6 @@ export interface Dispositivo {
   garantia_inicio: string,
   garantia_fin: string,
   active: boolean,
+  ultimo_check: string,
+  diferencia?: string;
 }

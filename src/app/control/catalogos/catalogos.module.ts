@@ -9,12 +9,26 @@ import { DispositivosPageComponent } from './pages/dispositivos-page/dispositivo
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrarDispositivoComponent } from './components/registrar-dispositivo/registrar-dispositivo.component';
 import { CalendarModule } from 'primeng/calendar';
+import { ModelosPageComponent } from './pages/modelos-page/modelos-page.component';
+import { RegistrarModeloComponent } from './components/modelos/registrar-modelo/registrar-modelo.component';
+import { ResponsivasPageComponent } from './pages/responsivas-page/responsivas-page.component';
+import { ChecklistPageComponent } from './pages/checklist/checklist-page/checklist-page.component';
+import { RegistrarChecklistComponent } from './pages/checklist/registrar-checklist/registrar-checklist.component';
+import { DialogModule } from 'primeng/dialog';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RatingModule } from 'primeng/rating';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 
 @NgModule({
   declarations: [
     DispositivosPageComponent,
-    RegistrarDispositivoComponent
+    RegistrarDispositivoComponent,
+    ModelosPageComponent,
+    RegistrarModeloComponent,
+    ResponsivasPageComponent,
+    ChecklistPageComponent,
+    RegistrarChecklistComponent,
   ],
   imports: [
     CommonModule,
@@ -22,7 +36,11 @@ import { CalendarModule } from 'primeng/calendar';
     ReactiveFormsModule,
     TableModule,
     ButtonModule,
-    CalendarModule
+    CalendarModule,
+    DialogModule,
+    RadioButtonModule,
+    RatingModule,
+    AutoCompleteModule,
   ]
 })
 export class CatalogosModule { }

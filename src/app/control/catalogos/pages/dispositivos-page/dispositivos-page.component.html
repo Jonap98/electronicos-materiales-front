@@ -36,7 +36,7 @@
         [paginator]="true"
         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
         [filterDelay]="0"
-        [globalFilterFields]="[ 'tipo', 'marca', 'modelo', 'num_serie', 'asset_name', 'mac_address', 'ip_address', 'owner', 'ubicacion', 'proceso', 'fecha_compra', 'garantia_inicio', 'garantia_fin']"
+        [globalFilterFields]="[ 'ultimo_check', 'tipo', 'marca', 'modelo', 'num_serie', 'asset_name', 'mac_address', 'ip_address', 'owner', 'ubicacion', 'proceso', 'fecha_compra', 'garantia_inicio', 'garantia_fin']"
     >
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
@@ -49,11 +49,32 @@
       </ng-template>
         <ng-template pTemplate="header">
             <tr>
+              <th pSortableColumn="ultimo_check" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Último check
+                    <p-sortIcon field="ultimo_check"></p-sortIcon>
+                    <p-columnFilter type="text" field="ultimo_check" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="asset_name" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Asset Name
+                    <p-sortIcon field="asset_name"></p-sortIcon>
+                    <p-columnFilter type="text" field="asset_name" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
               <th pSortableColumn="tipo" style="min-width: 14rem">
                 <div class="flex justify-content-between align-items-center">
                     Tipo
                     <p-sortIcon field="tipo"></p-sortIcon>
                     <p-columnFilter type="text" field="tipo" display="menu" class="ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="owner" style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                    Owner
+                    <p-sortIcon field="owner"></p-sortIcon>
+                    <p-columnFilter type="text" field="owner" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
               </th>
               <th pSortableColumn="marca" style="min-width: 14rem">
@@ -77,13 +98,6 @@
                     <p-columnFilter type="text" field="num_serie" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
               </th>
-              <th pSortableColumn="asset_name" style="min-width: 14rem">
-                <div class="flex justify-content-between align-items-center">
-                    Asset Name
-                    <p-sortIcon field="asset_name"></p-sortIcon>
-                    <p-columnFilter type="text" field="asset_name" display="menu" class="ml-auto"></p-columnFilter>
-                </div>
-              </th>
               <th pSortableColumn="mac_address" style="min-width: 14rem">
                 <div class="flex justify-content-between align-items-center">
                     Mac
@@ -96,13 +110,6 @@
                     IP
                     <p-sortIcon field="ip_address"></p-sortIcon>
                     <p-columnFilter type="text" field="ip_address" display="menu" class="ml-auto"></p-columnFilter>
-                </div>
-              </th>
-              <th pSortableColumn="owner" style="min-width: 14rem">
-                <div class="flex justify-content-between align-items-center">
-                    Owner
-                    <p-sortIcon field="owner"></p-sortIcon>
-                    <p-columnFilter type="text" field="owner" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
               </th>
               <th pSortableColumn="ubicacion" style="min-width: 14rem">
@@ -152,14 +159,15 @@
         <ng-template pTemplate="body" let-dispositivos>
 
           <tr class="p-selectable-row">
+            <td [ngClass]=" dispositivos.diferencia > 7 ? 'bg-danger text-white' : '' "> {{ dispositivos.ultimo_check | date: 'd/M/yyyy h:mm a' }} </td>
+            <td>{{ dispositivos.asset_name }}</td>
             <td>{{ dispositivos.tipo }}</td>
+            <td>{{ dispositivos.owner }}</td>
             <td>{{ dispositivos.marca }}</td>
             <td>{{ dispositivos.modelo }}</td>
             <td>{{ dispositivos.num_serie }}</td>
-            <td>{{ dispositivos.asset_name }}</td>
             <td>{{ dispositivos.mac_address }}</td>
             <td>{{ dispositivos.ip_address }}</td>
-            <td>{{ dispositivos.owner }}</td>
             <td>{{ dispositivos.ubicacion }}</td>
             <td>{{ dispositivos.proceso }}</td>
             <td>{{ dispositivos.fecha_compra }}</td>
