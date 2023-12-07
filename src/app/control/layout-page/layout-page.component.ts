@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-layout-page',
@@ -16,25 +17,32 @@ export class LayoutPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // private authService: AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    // const checkAuth: boolean = localStorage.getItem('token') ? true : false;
+    // this.isAuthenticated = checkAuth;
+
+    this.authService.checkAuthentication().subscribe(
+      resp => this.isAuthenticated = resp
+    );
+
+    // const checkRole: boolean = localStorage.getItem('role') == 'LOBBY-admin' ? true : false;
+    // this.isAdmin = checkRole;
+
     this.sidebarItems = this.isAuthenticated ?
-      this.isAdmin ?
       [
         { label: 'Auth', icon: 'area', url: './control/responsivas' },
         { label: 'Dispositivos', icon: 'area', url: './control/responsivas' },
         { label: 'Responsivas', icon: 'area', url: './control/responsivas' },
         { label: 'Checklist', icon: 'area', url: '/control/catalogos/checklist' },
         // { label: 'Graficas', icon: 'area', url: '/control/catalogos/modelos' },
-      ]
-      : []
-    : [
-      { label: 'Dispositivos', icon: 'area', url: './control/responsivas' },
-      { label: 'Modelos', icon: 'area', url: '/control/catalogos/modelos' },
-      { label: 'Checklist', icon: 'area', url: '/control/catalogos/checklist' },
-      // { label: 'Graficas', icon: 'area', url: '/control/catalogos/modelos' },
+      ] : [
+        // { label: 'Dispositivos', icon: 'area', url: './control/responsivas' },
+        // { label: 'Modelos', icon: 'area', url: '/control/catalogos/modelos' },
+        { label: 'Checklist', icon: 'area', url: '/control/catalogos/checklist' },
+        // { label: 'Graficas', icon: 'area', url: '/control/catalogos/modelos' },
     ];
 
     this.navbarItems = !this.isAuthenticated ? [
@@ -43,7 +51,7 @@ export class LayoutPageComponent implements OnInit {
   }
 
   onLogout(): void {
-    // this.authService.logout();
+    this.authService.logout();
     this.router.navigate(['./auth']);
   }
 }

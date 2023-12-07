@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { VerResponsivasPageComponent } from './responsivas/pages/ver-responsivas-page/ver-responsivas-page.component';
 import { VerDetallesPageComponent } from './responsivas/pages/ver-detalles-page/ver-detalles-page.component';
 import { LayoutPageComponent } from './layout-page/layout-page.component';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,7 +16,9 @@ const routes: Routes = [
       },
       {
         path: 'responsivas',
-        loadChildren: () => import('./responsivas/responsivas.module').then( m => m.ResponsivasModule )
+        loadChildren: () => import('./responsivas/responsivas.module').then( m => m.ResponsivasModule ),
+        canActivate: [ AuthGuard ],
+        canMatch: [ AuthGuard ]
       },
       // {
       //   path: 'responsivas',
